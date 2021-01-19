@@ -46,9 +46,9 @@ parser.add_argument('--tempo-range', type=parseRange, help='Select tempo ranges 
 parser.add_argument('xml', metavar='FILE', help='Path to RISM XML database')
 
 def process_record(record, tempos, args, counters):
-    record = record['record']
+    record = record['marc:record']
     record_id = None
-    for cf in record['controlfield']:
+    for cf in record['marc:controlfield']:
         if cf['@tag'] == '001':
             record_id = cf.get('#text')
             break
@@ -58,12 +58,12 @@ def process_record(record, tempos, args, counters):
     counters.increment('records')
     tempoit = cycle(tempos)
 
-    for df in record['datafield']:
+    for df in record['marc:datafield']:
         if df['@tag'] == '031':
             paedata = clef = timesig = keysig = None
             i1 = i2 = i3 = None
             key= instrument = None
-            for sf in df['subfield']:
+            for sf in df['marc:subfield']:
                 if sf['@code'] == 'a':
                     i1 = sf.get('#text')
                 elif sf['@code'] == 'b':
@@ -160,7 +160,7 @@ if __name__ == '__main__':
     q = mp.Queue(maxsize=args.num_workers)
     counters = Counters()
     pool = mp.Pool(args.num_workers, initializer=process_rism, initargs=(q, args, counters))
-    parser = etree.iterparse(args.xml, ns_clean=True, tag='record', events=('end', ))
+    parser = etree.iterparse(args.xml, tag='{http://www.loc.gov/MARC21/slim}record', events=('end', ))
     np.random.seed(44)
     for event, element in tqdm(parser, total=args.length, ascii=True):
         record = xmltodict.parse(etree.tostring(element))
