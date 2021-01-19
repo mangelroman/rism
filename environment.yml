@@ -1,0 +1,9 @@
+name: rism
+dependencies:
+  - python=3.7
+  - numpy
+  - tqdm
+  - wget
+  - pip:
+    - lxml
+    - xmltodict
