@@ -18,5 +18,5 @@ conda env create --file=environment.yml
 
 3. Run the script:
 ```
-python rism.py --data-dir=./output_folder --num-workers=4 rism_190118.xml
+python rism.py --data-dir=./output_folder --num-workers=4 rism_201219.xml
 ```
