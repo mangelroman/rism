@@ -1,6 +1,6 @@
 # RISM extractor
 
-This simple python script extract incipits from [RISM](https://opac.rism.info/). 
+This python script extracts incipits from [RISM](https://opac.rism.info/). 
 
 Additionally, it converts extracted PAE incipits to Humdrum **kern and MIDI files by using paekern and hum2mid tools from [humdrum-tools](https://github.com/humdrum-tools/humdrum-tools) repository.
 
